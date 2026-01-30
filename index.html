@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cancer Detection with YOLOv8</title>
+    <style>
+        body { font-family: Arial; margin: 0; padding: 0; text-align: center; }
+        header {
+            background-color: #1a237e; color: white;
+            padding: 20px 0; display: flex;
+            align-items: center; justify-content: center; gap: 15px;
+        }
+        header img { height: 60px; }
+        footer {
+            background-color: #1a237e; color: white;
+            text-align: center; padding: 10px;
+            font-size: 14px; position: fixed;
+            width: 100%; bottom: 0;
+        }
+        .container { margin-bottom: 100px; }
+        table { margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 8px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+<header>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="PIEAS Logo">
+    <h1>Cancer Detection System - YOLOv8</h1>
+</header>
+
+<div class="container">
+    <h2>Upload Cancer Image for Detection</h2>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if result %}
+    <h3>Original Image</h3>
+    <img src="{{ url_for('static', filename='uploads/' + original) }}" width="400"><br>
+
+    <h3>Detection Result</h3>
+    <img src="{{ url_for('static', filename='outputs/' + result) }}" width="400">
+    {% endif %}
+
+    {% if detections %}
+    <h3>Detected Cancer Regions</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>YOLO Label</th>
+                <th>Confidence</th>
+                <th>XMin</th>
+                <th>YMin</th>
+                <th>XMax</th>
+                <th>YMax</th>
+                <!-- === CHANGED / ADDED === -->
+                <th>Cancer Name</th>
+                <th>Cancer Type</th>
+                <!-- === END CHANGED / ADDED === -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in detections %}
+            <tr>
+                <td>{{ d.label }}</td>
+                <td>{{ d.confidence }}</td>
+                <td>{{ d.xmin }}</td>
+                <td>{{ d.ymin }}</td>
+                <td>{{ d.xmax }}</td>
+                <td>{{ d.ymax }}</td>
+                <!-- === CHANGED / ADDED === -->
+                <td>{{ d.cancer_name }}</td>
+                <td>{{ d.cancer_type }}</td>
+                <!-- === END CHANGED / ADDED === -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+<footer>
+    <p>&copy; 2025 PIEAS | Cancer Detection System</p>
+</footer>
+</body>
+</html>
