@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en">
+<head><title>Detection Result</title></head>
+<body>
+  <h1>Detection Completed</h1>
+  <img src="{{ url_for('send_file', filename=filename) }}" width="500">
+  <br><a href="/">Upload another image</a>
+  <br><a href="/results">View All Results</a>
+</body>
+</html>
