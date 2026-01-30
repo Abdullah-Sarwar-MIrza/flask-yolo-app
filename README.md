@@ -73,8 +73,7 @@ This project was developed as a **Final Year Project (FYP) / MS Thesis**, aiming
 ├── models/                 # Trained classifier models
 ├── utils.py                # Helper functions
 ├── templates/              # HTML files
-├── static/                 # CSS / JS / images
-├── datasets/               # YOLO & classification datasets
+├── static/                 # Uploaded images and output of the images
 └── README.md
 ```
 
